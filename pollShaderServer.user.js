@@ -3,25 +3,17 @@
 // @author         Reinitialized
 //
 //Version Number
-// @version        0.01
+// @version        0.02
 //
 // Urls process this user script on
 // @include        /^https?://(www\.)?shadertoy.com/new$/
+// @require       https://cdn.socket.io/socket.io-1.0.6.js
 // ==/UserScript==
 
-function pollShaderServer()
-{
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.timeout = 0;
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-        {
-            gShaderToy.mCodeEditor.setValue(xmlhttp.responseText);
-            gShaderToy.SetShaderFromEditor();
-            pollShaderServer();
-        }
+var socket = io.connect('localhost:1234');
+socket.on('shaderUpdate', function(shader) {
+    if (t = gShaderToy) {
+	t.mCodeEditor.setValue(shader);
+	t.SetShaderFromEditor();
     }
-    xmlhttp.open("GET","http://127.0.0.1:1234", true);
-    xmlhttp.send();
-};
-pollShaderServer();
+});
