@@ -9,7 +9,7 @@ Installation
 2. [Install the browser userscript](https://github.com/reinitialized/shadertoy-external-editor/raw/master/pollShaderServer.user.js)
 3. Create a shader at the path "~/myShaderToy.vert"
 4. Run
-  ```sh
+  ```
   node shaderServer.js
   ```
 5. [Open a new ShaderToy](https://www.shadertoy.com/new)
